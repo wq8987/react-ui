@@ -1,6 +1,7 @@
 import Regs from './regs'
 import { format, toArray } from './strings'
 import Warning from './warning'
+import { isEmpty } from './objects'
 
 import { getLang } from '../lang'
 
@@ -30,7 +31,7 @@ export function validate (value, valueType, formData, props, callback) {
   }
 
   // skip empty value
-  if (value === undefined || value === null || value === '') {
+  if (value === undefined || value === null || value === '' || isEmpty(value)) {
     return true
   }
 
@@ -89,6 +90,8 @@ export function validate (value, valueType, formData, props, callback) {
     }
   }
 
+  if (valueType === 'datetime') return true
+
   switch (valueType) {
     case 'array':
       len = toArray(value, sep).length
@@ -101,14 +104,12 @@ export function validate (value, valueType, formData, props, callback) {
     break
   }
 
-  if (len > 0) {
-    if (max && len > max) {
-      return handleError(label, max, `max.${valueType}`, tip)
-    }
+  if (max && len > max) {
+    return handleError(label, max, `max.${valueType}`, tip)
+  }
 
-    if (min && len < min) {
-      return handleError(label, min, `min.${valueType}`, tip)
-    }
+  if (min && len < min) {
+    return handleError(label, min, `min.${valueType}`, tip)
   }
 
   return true

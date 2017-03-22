@@ -17,13 +17,13 @@ export function filterInputProps () {
 export function filterTextareaProps () {
   return filter(
     [...arguments],
-    ['onValidate', 'sep', 'hasError', 'trigger']
+    ['onValidate', 'sep', 'hasError', 'trigger', 'tip', 'validator', 'hasError', 'trigger']
   )
 }
 
 export function filterFormProps () {
   return filter(
     [...arguments],
-    ['fetchStatus', 'fetch', 'columns', 'labelWidth', 'onChange', 'initValidate']
+    ['onCancel', 'fetchStatus', 'fetch', 'columns', 'labelWidth', 'onChange', 'initValidate']
   )
 }
